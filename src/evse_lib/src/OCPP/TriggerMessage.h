@@ -1,0 +1,33 @@
+
+// matth-x/ESP8266-OCPP
+// Copyright Matthias Akstaller 2019 - 2020
+// MIT License
+
+#ifndef TRIGGERMESSAGE_H
+#define TRIGGERMESSAGE_H
+
+#include "Variants.h"
+
+// #include "libraries/arduinoWebSockets-master/src/WebSocketsClient.h"
+//#include "../arduinoWebSockets-master/src/WebSocketsClient.h"
+//#include "../WebSockets_Generic/src/WebSocketsClient_Generic.h"
+#include "../websocket/WebSocketsClient.h"
+#include "OcppMessage.h"
+#include "OcppOperation.h"
+
+class TriggerMessage : public OcppMessage {
+private:
+  WebSocketsClient *webSocket;
+  OcppOperation *triggeredOperation;
+  const char *statusMessage;
+public:
+  TriggerMessage(WebSocketsClient *webSocket);
+
+  const char* getOcppOperationType();
+
+  void processReq(JsonObject payload);
+
+  DynamicJsonDocument* createConf();
+};
+
+#endif
